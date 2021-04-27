@@ -23,17 +23,27 @@ public class Test2_8 {
 		 * 
 		 * */
 	
-		Scanner scan = new Scanner(System.in);
-		System.out.print("정수 1을 입력하세요 : ");
-		int num1 = scan.nextInt();
-		System.out.print("문자를 입력하세요 : ");
-		char ch = scan.next().charAt(0);
-		System.out.print("정수 2를 입력하세요 : ");
-		int num2 = scan.nextInt();
-		System.out.println(""+ num1 + ch + num2);
-		System.out.print("두 정수와 산술 연산자를 입력하세요(예 : 1 + 2) : ");
-	
 		
+		System.out.print("두 정수와 산술 연산자를 입력하시오 : ");
+		Scanner scan = new Scanner(System.in);
+		int num1=scan.nextInt();
+		char ch=scan.next().charAt(0);	
+		int num2=scan.nextInt();
+		
+		if(ch=='+') {
+			System.out.print(""+ num1 + num2 +" =" + (num1+num2));
+		} else if(ch=='-') {
+			System.out.print(""+ num1 + num2 +" =" + (num1-num2)); // num1-num2 는 왜 오류되는지 + 값은 왜 안나오는지
+		} else if(ch=='*') {
+			System.out.print(""+ num1 * num2 +" =" + (num1*num2));
+		} else if(ch=='/') {
+			System.out.print(""+ num1 / num2 +" =" + (num1/num2));
+		} else if(ch=='%') {
+			System.out.print(""+ num1 % num2 +" =" + (num1%num2));
+		}
+			
+	
+		scan.close();
 		
 		}
 		
