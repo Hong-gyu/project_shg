@@ -37,13 +37,13 @@ public class For7 {
 		Scanner scan=new Scanner(System.in);
 		num1=scan.nextInt();
 		num2=scan.nextInt();
-		for(i=1; i<=i; i+=1) {
+		for(i=1; i<=num1; i+=1) {
 			if(num1%i==0 && num2%i==0) {  // 첫번째 정수가 i로 나누어 떨어지고, 두번째 정수도 i로 나누어 떨어지면
 				gcd=i;			// 그 숫자들은 gcd 안에 있다
 				// System.out.print(num1+" 과(와)"+" "+num2+" 의 최대 공약수는 "+i+" "); // 첫번째 정수와 두번째 정수의 최대 공약수는 i 이다
 			}
-			System.out.print(num1+" 과(와)"+" "+num2+" 의 최대 공약수는 "+gcd+" ");	// gcd 안에 있는 숫자 중 가장 큰 숫자를 출력한다
 		}
+		System.out.println(num1+" 과(와)"+" "+num2+" 의 최대 공약수는 "+gcd+" ");	// gcd 안에 있는 숫자 중 가장 큰 숫자를 출력한다
 		
 	
 		scan.close();
