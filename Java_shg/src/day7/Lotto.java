@@ -80,7 +80,7 @@ public class Lotto {
 	 * 리턴타입 : 출력은 없음 => void 
 	 * 메소드명 : printResult
 	 * */
-	
+	 
 	public static void printResult(int ball, int strike) {
 		if(컴퓨터 배열=사용자 입력 배열 6개) {
 			System.out.print("1등");
