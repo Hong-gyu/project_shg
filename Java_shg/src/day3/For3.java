@@ -18,7 +18,7 @@ public class For3 {
 		
 		int i;
 		for(i = 1 ; i <= 9; i++ ) {
-			System.out.println("7 X"+" "+i+" = "+(7*i));
+			System.out.println("7 X "+i+" = "+(7*i));
 		}
 		
 	
