@@ -23,24 +23,43 @@ public class Cardgame_Teacher {
 		//아래와 같이 풀하우스, 트리플, 페어로 판별 가능한 경우
 		//풀하우스 하나만 출력
 		//아래는 1풀하우스입니다라고 출력
-		int []arr = new int[] {1,1,1,2,2,7,8};
-
-		System.out.println("포커 : " + poker(arr));
-		System.out.println("트리플 : " + triple(arr));
-		System.out.println("원페어 : " + onePair(arr));
-		System.out.print("투페어 : ");
-		int []res = twoPair(arr);
-		if(res == null) {
-			System.out.println(0);
-		}else {
-			for(int tmp : res) {
+		int []arr = new int[] {1,2,2,2,2,5,6};
+		int result;
+		int [] resultArr;
+		if( (result = poker(arr)) != 0 ) {
+			System.out.println(result + " 포커");	
+		}else if((result = fullHouse(arr)) != 0) {
+			System.out.println(result + " 풀하우스");	
+		}else if((result = straight(arr)) != 0) {
+			System.out.println(result + " 스트레이트");	
+		}else if((result = triple(arr)) != 0) {
+			System.out.println(result + " 트리플");	
+		}else if((resultArr = twoPair(arr))!= null) {
+			for(int tmp : resultArr) {
 				System.out.print(tmp + " ");
 			}
-			System.out.println();
+			System.out.println("페어");
+		}else if((result = onePair(arr)) != 0) {
+			System.out.println(result + " 페어");	
+		}else {
+			System.out.println(arr[arr.length-1] + " 탑");
 		}
-		System.out.println("풀하우스 : " + fullHouse(arr));
-		System.out.println("스트레이트 : " + straight(arr));
-
+		
+		
+		//참조 변수인 경우 null이 들어갈수 있기 때문에 참조 변수를 이용하는 경우
+		//null인지 아닌지를 체크하고 이용해야 한다.
+		int [] arr3 = null;
+		//SCE
+		//논리 연산자에서 판별할 때 왼쪽에 있는 값에 따라 오른쪽이 실행되지 않을 수
+		//있다.
+		//&& : 하나라도 거짓이면 거짓, 왼쪽이 거짓이면 오른쪽을 확인하지 않아도
+		//     거짓이기 때문에 오른쪽이 실행되지 않음
+		//|| : 하나라도 참이면 참, 왼쪽이 참이면 오른쪽을 확인하지 않아도 참이기 
+		//	   때문에 오른쪽이 실행되지 않음
+		if(arr3 != null && arr3.length == 2) {
+			System.out.println("12");
+		}
+		
 	}
 	/* 포커를 확인할 수 있는 메소드를 정리해보세요.
 	 * 기능 	  : 배열이 주어지면 배열에 포커가 있는지 확인하여 있으면 해당 숫자를
@@ -192,7 +211,7 @@ public class Cardgame_Teacher {
 	 * 리턴타입 : 풀하우스 숫자 => int
 	 * 메소드명 : fullHouse */
 	public static int fullHouse(int []card) {
-
+		
 		int [] triple = tripleList(card);
 		//트리플이 없으면 풀하우스가 될 수 없기 때문에 0을 리턴
 		if(triple == null) {
@@ -206,7 +225,7 @@ public class Cardgame_Teacher {
 			}
 			return triple[1];
 		}
-
+		
 		//트리플이 2개가 아니면
 		//트리플이 1개, 페어가 1개 이상이면 풀하우스
 		//triple과 pairList를 이용
@@ -215,7 +234,7 @@ public class Cardgame_Teacher {
 		if(pair != null) {
 			return triple[0];
 		}
-
+		
 		//아니면 풀하우스가 아님
 		return 0;
 	}
@@ -232,7 +251,10 @@ public class Cardgame_Teacher {
 		int count = 1;
 		int num = 0;
 		for(int i = 0; i<card.length - 1 ; i+=1) {
-			// 1 2 3 4 5 6 7 
+			
+			if(card[i] == card[i+1]) {//1 2 2 3 3 4 5
+				continue;
+			}
 			if(card[i] + 1 == card[i+1]) {
 				count += 1;
 				num = card[i+1];
@@ -247,6 +269,6 @@ public class Cardgame_Teacher {
 		if(count >= 5) {
 			return num;
 		}
-		return 0;
+		return num;
 	}
 }
