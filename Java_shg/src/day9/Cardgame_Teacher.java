@@ -26,7 +26,7 @@ public class Cardgame_Teacher {
 		int []arr = new int[] {1,2,2,2,2,5,6};
 		int result;
 		int [] resultArr;
-		if( (result = poker(arr)) != 0 ) {
+		if( (result = poker(arr)) != 0 ) { // 포커가 있는지 없는지를 확인하고 그걸 result에 넣는데 그 숫자가 0과 같지 않으면 포커가 있다는거니까 포커로 출력, 그 숫자가 0이면 다음 조건문으로 이동(풀하우스인지 그 밑에 등급인지 확인하기 위해)
 			System.out.println(result + " 포커");	
 		}else if((result = fullHouse(arr)) != 0) {
 			System.out.println(result + " 풀하우스");	
