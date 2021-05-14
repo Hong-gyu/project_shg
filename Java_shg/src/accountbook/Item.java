@@ -40,6 +40,16 @@ public class Item {
 	public int getCost() {
 		return cost;
 	}
+	public int calCost() {
+		switch(type) {
+		case "지출" :
+			return -cost;
+		case "수입" :
+			return cost;
+		default :
+			return 0;
+		}
+	}
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
@@ -87,6 +97,5 @@ public class Item {
 		}
 				
 	}
-	
 	
 }

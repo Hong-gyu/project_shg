@@ -1,5 +1,7 @@
 package accountbook;
 
+import java.util.Scanner;
+
 public class AccountBook {
 
 	public static void main(String[] args) {
@@ -19,172 +21,63 @@ public class AccountBook {
 		 * 출금내용(5월 관리비 지출, 점심값 지출, ... )(string) 
 		 * 출금방법(현금결제, 계좌이체, 카드결제)(int or string)
 		 * */
-		
-		/* 객체 지향 -> 사용자가 편리하게 이용할 수 있도록
-		 * 구분 : 자동 생성
-		 * 입출금 분류
-		 * */
-		
-		/* 기능
-		 *  1. 가계부 입력 ( 입출금 분류 - 날짜 - 분류 - 금액 - 처 - 내용 - 방법 순으로 입력)
-		 *  2. 잔액 확인 ( 총 입금액 - 총 출금액)
-		 *  3. 작성 내용 확인 ( 게시글 번호 조회 - 게시글 했던거 참조)
-		 *  4. 작성 내용 상세 확인 ( 게시글 상세 조회 - 게시글 했던거 참조)
-		 *  3. 프로그램 종료*/
-
 	}
-
 }
 
 class AccountBook1 {
 	// 멤버변수 선언
-	private int boardNum;
-	private String Type;
-	private int registerDate;
-	private String inputType;
-	private int inputMoney;
-	private String inputWhere;
-	private String inputContents;
-	private String inputMethod;
-	private String outputType;
-	private int outputMoney;
-	private String outputWhere;
-	private String outputContents;
-	private String outputMethod;
+	private Item [] arr; // 가계부 내역들을 저장할 수 있는 배열
+	private int count; // 저장된 내역들 갯수
+	private int total; // 내역에 기입된 금액의 총 양
 
-	// 메소드 구현
-	public void print () {
-		System.out.println("번호 : " + boardNum);
-		System.out.println("날짜 : " + registerDate);
-		System.out.println("구분 : " + Type);
-		System.out.println("입금구분 : " + inputType);
-		System.out.println("입금액 : " + inputMoney);
-		System.out.println("입금처 : " + inputWhere);
-		System.out.println("입금내용 : " + inputContents);
-		System.out.println("입금방법 : " + inputMethod);
-		System.out.println("입금구분 : " + outputType);
-		System.out.println("입금액 : " + outputMoney);
-		System.out.println("입금처 : " + outputWhere);
-		System.out.println("입금내용 : " + outputContents);
-		System.out.println("입금방법 : " + outputMethod);
-	}
-//	private int boardNum;
-//	private int registerDate;
-//	private String Type;
-//	private String inputType;
-//	private int inputMoney;
-//	private String inputWhere;
-//	private String inputContents;
-//	private String inputmethod;
-//	private String outputType;
-//	private int outputMoney;
-//	private String outputWhere;
-//	private String outputContents;
-//	private String outputmethod;
-	
-	// getter, setter 생성
-	
-	public int getBoardNum() {
-		return boardNum;
-	}
-	public void setBoardNum(int boardNum) {
-		this.boardNum = boardNum;
-	}
-	public String getType() {
-		return Type;
-	}
-	public void setType(String type) {
-		Type = type;
-	}
-	public int getRegisterDate() {
-		return registerDate;
-	}
-	public void setRegisterDate(int registerDate) {
-		this.registerDate = registerDate;
-	}
-	public String getInputType() {
-		return inputType;
-	}
-	public void setInputType(String inputType) {
-		this.inputType = inputType;
-	}
-	public int getInputMoney() {
-		return inputMoney;
-	}
-	public void setInputMoney(int inputMoney) {
-		this.inputMoney = inputMoney;
-	}
-	public String getInputWhere() {
-		return inputWhere;
-	}
-	public void setInputWhere(String inputWhere) {
-		this.inputWhere = inputWhere;
-	}
-	public String getInputContents() {
-		return inputContents;
-	}
-	public void setInputContents(String inputContents) {
-		this.inputContents = inputContents;
-	}
-	public String getInputMethod() {
-		return inputMethod;
-	}
-	public void setInputMethod(String inputMethod) {
-		this.inputMethod = inputMethod;
-	}
-	public String getOutputType() {
-		return outputType;
-	}
-	public void setOutputType(String outputType) {
-		this.outputType = outputType;
-	}
-	public int getOutputMoney() {
-		return outputMoney;
-	}
-	public void setOutputMoney(int outputMoney) {
-		this.outputMoney = outputMoney;
-	}
-	public String getOutputWhere() {
-		return outputWhere;
-	}
-	public void setOutputWhere(String outputWhere) {
-		this.outputWhere = outputWhere;
-	}
-	public String getOutputContents() {
-		return outputContents;
-	}
-	public void setOutputContents(String outputContents) {
-		this.outputContents = outputContents;
-	}
-	public String getOutputMethod() {
-		return outputMethod;
-	}
-	public void setOutputMethod(String outputMethod) {
-		this.outputMethod = outputMethod;
-	}
 
 	// 생성자
-	public AccountBook1(int boardNum, String type, int registerDate, String inputType, int inputMoney,
-			String inputWhere, String inputContents, String inputMethod, String outputType, int outputMoney,
-			String outputWhere, String outputContents, String outputMethod) {
-		this.boardNum = boardNum;
-		Type = type;
-		this.registerDate = registerDate;
-		this.inputType = inputType;
-		this.inputMoney = inputMoney;
-		this.inputWhere = inputWhere;
-		this.inputContents = inputContents;
-		this.inputMethod = inputMethod;
-		this.outputType = outputType;
-		this.outputMoney = outputMoney;
-		this.outputWhere = outputWhere;
-		this.outputContents = outputContents;
-		this.outputMethod = outputMethod;
-	}
 	
+		
+	// 메소드 구현
+	
+	/* 기능 : 입력된 내역을 배열에 저장하는 메소드
+	 * 매개변수 : 입력한 내역
+	 * 리턴타입 : 없음 -> void
+	 * 메소드명 : save */
+	
+	/* 입력한 내역 = */
+	
+	/* 기능 : 금액을 확인하는 메소드
+	 * 매개변수 : 입금 합계, 출금 합계, 잔액 -> int inputSum, int outputSum, int balance
+	 * 리턴타입 : 없음 -> void
+	 * 메소드명 : moneyConfirm  */
 
 	
+	/* 기능
+	 *  1. 가계부 입력 ( 입출금 분류 - 날짜 - 분류 - 금액 - 처 - 내용 - 방법 순으로 입력) - 프로그램 클래스
+	 *  2. 가계부 수정 - 프로그램 클래스
+	 *  3. 가계부 삭제 - 프로그램 클래스
+	 *  4. 금액 확인 ( 총 입금액, 총 출금액, 잔액) - 가계부 클래스
+	 *  5. 작성 내용 확인 ( 게시글 번호 조회 - 게시글 했던거 참조)
+	 *  6. 작성 내용 상세 확인 ( 게시글 상세 조회 - 게시글 했던거 참조)
+	 *  7. 프로그램 종료*/
 	
 	
+	// getter, setter 생성
+	public Item[] getArr() {
+		return arr;
+	}
+	public void setArr(Item[] arr) {
+		this.arr = arr;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getTotal() {
+		return total;
+	}
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
 }
 
