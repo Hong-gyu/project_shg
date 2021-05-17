@@ -23,7 +23,7 @@ public class InterfaceTest {
 }
 
 class A1 {
-	void print() {
+	void print( ) {
 		System.out.println("Hello");
 	}
 }

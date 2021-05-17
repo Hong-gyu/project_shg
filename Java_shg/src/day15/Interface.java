@@ -3,7 +3,7 @@ package day15;
 public class Interface {
 
 	public static void main(String[] args) {
-		/* 인터페이스(기능명세)
+		/* 인터페이스(기능명세 )
 		 *  - 메소드는 추상메소드만 있을 수 있다.
 		 *    => abstract라는 키워드가 없어도 자동으로 추가 됨
 		 *  - 변수는 있을 수 없고 상수(클래스 상수)만 있을 수 있다.
