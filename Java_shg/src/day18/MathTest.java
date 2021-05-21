@@ -15,7 +15,7 @@ public class MathTest {
 		System.out.println(Math.floor(1.9));
 		// rint() : 가까운 정수값의 실수
 		System.out.println("rint()");
-		System.out.println(Math.rint(1.45));
+		System.out.println(Math.rint(1.45)); 
 		System.out.println(Math.rint(3.67));
 		// round() : 반올림한 정수값
 		System.out.println("round()");
