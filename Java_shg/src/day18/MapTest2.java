@@ -59,17 +59,23 @@ public class MapTest2 {
 			int num = scan.nextInt();
 			switch(num) {
 				case 1 :
-					System.out.println("회원가입");
-					System.out.print("아이디를 입력하세요 : ");
-					String id = scan.next();
-					if(map.containsKey(id)==true) {
-						System.out.println("이미 가입된 아이디입니다.");
+					if(num==1) {
+						System.out.println("회원가입");
+						System.out.print("아이디를 입력하세요 : ");
+						String id = scan.next();
+						System.out.print("비밀번호를 입력하세요 : ");
+						String pw = scan.next();
+						map.put(id, pw);
+						System.out.println(map.size());
+						break;
+						/* if(map.size()==1) {  // 최초 회원가입시에는 중복체크 안함
+							break;
+						} else {  // 두번째부터는 중복체크 해야 함
+							if(map.containsKey(id)==true) {
+							System.out.println("이미 가입된 아이디입니다.");	
+							}
+						} */
 					} 
-					System.out.print("비밀번호를 입력하세요 : ");
-					String pw = scan.next();
-					set.add(id);
-					list.add(pw);
-					break;
 				case 2 :
 					System.out.println("로그인");
 					System.out.print("아이디를 입력하세요 : ");
@@ -90,11 +96,14 @@ public class MapTest2 {
 					}
 					System.out.print("로그인 실패");
 					break;
-				case 3 :
-					System.out.print("프로그램 종료");
+					}
+				case 3 : 
+					System.out.println("프로그램 종료");
 					break;
 			}
 		}
+	}
+}
 		// 메뉴출력
 		/* 1. 회원가입
 		 * 2. 로그인
@@ -117,8 +126,3 @@ public class MapTest2 {
 		 *  sysout("로그인 실패");
 		 * }
 		 *  */
-		
-		
-	}
-
-}
