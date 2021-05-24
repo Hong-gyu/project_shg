@@ -3,7 +3,7 @@ package day19;
 public class Rewind6 {
 
 	public static void main(String[] args) {
-		/* 클래스 
+		/* 클래스  
 		 *  - 메소드 : 하나의 기능을 하도록 모아놓은 코드
 		 *  - 매개변수 : 메소드를 실행하기 위해 필요한 정보
 		 *  - 리턴타입 : 메소드 실행 후 알려주는 정보
