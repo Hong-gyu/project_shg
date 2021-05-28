@@ -1,0 +1,16 @@
+-- join은 한 테이블로 원하는 모든 정보를 가져올 수 없을 때 여러 테이블을 하나로 만들어서 가져와야 하는 경우에 사용
+-- 2020135001 학생의 수강한 강의 제목을 하나의 테이블로 확인 할 수 없다 
+-- 	-> 수강 테이블에서 2020135001 학생이 수강한 강의 코드는 확인할 수 있지만 제목은 확인 불가
+-- 2020135001 학생의 수강한 강의 코드를 하나의 테이블로 확인 할 수 있다 -> 수강 테이블에서 확인 가능
+-- select 테이블명1.속성1, 테이블1.속성2, ... 테이블2.속성1 from 테이블1, 테이블2 where 조건
+-- 2020135001 학생의 수강한 강의 제목을 확인하기 위해서 필요한 테이블 -> couse(수강정보), class(강의제목)
+-- select co_st_num as '학번', cl_title as '과목명' from course, class where co_cl_code = cl_code and co_st_num = '2020135001'; 
+-- 교수번호가 p2000135001인 교수의 강의를 들은 학생 명단
+-- use portal;
+-- select st_name from course, class, student where cl_co_code = cl_code and co_st_num = st_num and cl_pr_num='P2000135001';
+-- select 속성1, 속성2, ... from 테이블1 join 테이블2 on 테이블1.외래키 = 테이블2.기본키 where 조건 ~ ;
+-- 위에 한 2020135001 학번 학생이 수강한 강의명을 확인하는 코드를 join을 이용하여 확인
+-- select co_st_num as '학번', cl_title as '과목명' from course join class on course.co_cl_code = class.cl_code where course.co_st_num='2020135001';
+-- join 할 때 두 테이블의 속성명이 겹치지 않는 경우 속성 이름 앞에 테이블 명을 생락해되 됨
+-- 네트워크 강의를 하는 교수 이름을 확인하는 
+select pr_name from class join professor on pr_num = cl_pr_num where cl_title='네트워크';
