@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>a태그 예제</title>
+    <!-- base 태그가 없으면 base3.html이 있어서 잘 실행되는데
+        base 태그가 있으면 네이버에서 base3.html을 찾기 때문에 원하는 결과를 확인할 수 없음 -->
+    <!-- <base href="http://www.naver.com"> -->
+</head>
+<body>
+    <!-- a태그
+         0. 인라인 태그
+         1. 기능
+            1) 링크  : 클릭했을 때 다른 페이지로 이동
+                -> 다른 사이트로 이동하는 경우에는 http:// 를 붙여줘야 함
+                -> 같은 사이트 내에 다른 페이지로 이동하는 경우 현재 html 파일을 기준으로 이동하려는 파일 위치를 계산해서 적어주면 됨
+            2) 싱커 : 같은 페이지 내 특정 위치로 이동
+                -> 싱커를 사용하려면 원하는 요소에 id를 부여해야 함
+                -> href = "#아이디명" : 해당 아이디 위치로 이동
+            3) 다운로드 : 지정된 파일을 다운로드
+                -> download 속성을 이용
+                -> href에 다운로드할 파일명을 적음
+         2. 속성
+            1) href : 이동할 주소 또는 위치
+            2) target : 현재창(_self), 새창(_blank), 부모창(_parent), 조상창(_top)에서 이동할지 선택
+    -->
+    <!--         링크     -->
+    <a href="http://www.naver.com">네이버1</a><br>
+    <a href="www.naver.com">네이버2</a><br>
+    <a href="naver.com">네이버3</a><br>
+    <a href="base3.html">기본예제3-1</a><br>
+    <a href="../day1/base4.html">기본예제3-2</a><br>
+    <a href="base3.html" target="_self">기본예제3-3(self - 현재창에서 이동하기)</a><br>
+    <a href="base3.html" target="_blank">기본예제3-4(blank - 새창으로 이동하기)</a><br>
+    <a href="base3.html" target="_parent">기본예제3-5(parent - 부모창에서 이동하기)</a><br>
+    <a href="base3.html" target="_top">기본예제3-6(top - 조상창에서 이동하기)</a><br>
+    <a href="http://www.naver.com">
+        <img src="k8.jpg" alt="네이버">
+    </a>
+    <!--         싱커     -->
+    <a href="#bottom">페이지내 이동</a>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <ol> 오늘 할일 
+        <li>출근</li>
+        <li>수업</li>
+        <li>점심</li>
+        <li>수업</li>
+        <li>퇴근</li>
+    </ol>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <div id="bottom"> 여기로 이동 </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <p>안녕하세요. 제 이름은 홍길동입니다.</p>
+    만나서 반갑습니다. <br>
+    오늘은 날씨가 좋습니다. <br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    기아자동차 k8 이미지 다운로드 (출처 : 구글링) <br>
+
+    <a href="k8.jpg"download> k8 다운로드</a>
+</body>
+</html>
