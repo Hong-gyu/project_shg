@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본태그2</title>
+</head>
+<body>
+    <!-- img 태그
+        1) 이미지를 추가하는 태그
+        2) 속성
+            - src : 이미지 파일 주소
+            - alt : 이미지를 못 불러올때 보여줄 대체 문자열
+            - width : 이미지 너비, 생략하면 원본 이미지 너비, 단위 px
+            - height : 이미지 높이, 생략하면 원본 이미지 높이, 단위 px
+        3) width 또는 height 중 하나의 값이 auto이면 정해진 width 또는 height를 기준으로 비율을 유지하면서 값을 설정
+            예) width = "100" height = "auto" 인 경우 가로 100px을 기준으로 원본 이미지 비율대로 높이르 설정
+     -->
+     <!-- 이미지 태그가 있는 html 문서와 같은 폴더에 있는 k8.jpg 이미지를 가져옴 -->
+     <img src="k8.jpg" alt="k8">
+     <!-- 최상위를 기준으로 최상위 폴더 > day1폴더 > k8.jpg 이미지를 가져옴
+            최상위 폴더의 기준은 open folder를 이용하여 연 폴더를 기준으로 하기 때문에 상황에 따라 최상위 폴더 기준이 달라질 수 있음  -->
+     <img src="/day1/k8.jpg" alt="k8" width = "100" height = "200">
+     <!-- ./ 는 현재 폴더를 의미 -->
+     <img src="./k8.jpg" alt="k8" width = "100" height = "100">
+     <!-- ../는 상위폴더, html 문서가 있는 폴더에서 상위 폴더로 간 후 거기서 다시 day1 폴더 안에 있는 k8.jpg를 가져옴 -->
+     <img src="../day1/k8.jpg" alt="k8" width = "100" height = "auto">
+     <!-- 인터넷에 있는 이미지를 가져옴 -->
+     <img src="https://chosunbiz-chosunbiz-prod.cdn.arcpublishing.com/resizer/f5RnNGnq53kjaMjUmf4rIIxvokU=/464x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/DTIUO3IE5YN3FKRO6DXXBHXGWU.jpg" alt="k8" width = "100" height = "auto">
+     <!-- 리스트
+        - 순서 있는 리스트(번호 또는 알파벳) - ol 
+        - 순서 없는 리스트(점 또는 사각형) - ul
+        - 정의 리스트 - dl
+        - 해당 태그들 안에 li 태그들로 구성 -->
+    <!-- ol
+        - 속성
+            1) type : 숫자 또는 알파벳으로 1,A,a,I,i 중 하나르 선택
+            2) start : 시작 숫자 
+        - type 속성과 start 속성을 이용하는 대신 css를 이용할 것을 권장
+        - 블록 태그
+    -->
+
+    <ol> 오늘 할일 
+        <li>출근</li>
+        <li>수업</li>
+        <li>점심</li>
+        <li>수업</li>
+        <li>퇴근</li>
+    </ol>
+    <!-- ul
+        - 속성
+            1) type : 기호, disc, circle, square -->
+    <ul type ="square">
+        <li>짜장</li>
+        <li>짬뽕</li>
+        <li>탕수육</li>
+    </ul>
+    <!-- 
+        dl
+        - dt 태그와 dd 태그로 이루어져 있음
+        - dt 태그는 용어, dd 태그는 해당 용어에 대한 설명
+     -->
+     웹 브라우저 종류
+     <dl>
+        <dt> Internet Explore </dt>
+        <dd> 마소에서 만든 브라우저 </dd>
+        <dt> Firefox </dt>
+        <dd> Mozila 에서 만든 브라우저 </dd>
+        <dt> Chrome </dt>
+        <dd> 구글에서 만든 브라우저 </dd>
+</body>
+</html>
