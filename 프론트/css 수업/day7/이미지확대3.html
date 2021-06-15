@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 이미지 확대 예제3 </title>
+	<style>
+		*{padding : 0; margin : 0; text-decoration : none; color : black}
+		.out-box{padding : 10px; width : 874px; border : 1px solid black;}
+		
+		.box1{padding : 10px; width : 410px; border: 1px solid black;
+		float : left;}
+		.inner-box1::after, .out-box::after
+		{clear : both; content : ''; display: block;}
+		.img-box1{width : 200px; height : 200px; overflow: hidden; float: left;}
+		.img-box1 img{width:200px; height :200px; transition: transform 1s;}
+		.box1:hover img{transform: scale(1.05);}
+
+		.group-box1{width : 200px; height : 200px; float : right;}
+		p.title1{width : 200px; height: 25px; line-height: 25px; font-size: 20px;}
+		p.contents1{height : 175px; line-height: 20px;}
+		.group-box1:hover p.title1{text-decoration: underline;}
+
+
+		.box2{padding : 10px; width : 410px; border: 1px solid black;
+		 float : right;}
+		.inner-box2::after{clear : both; content : ''; display: block;}
+		.img-box2{width : 200px; height : 200px; overflow: hidden; float: left;}
+		.img-box2 img{width:200px; height :200px; transition: transform 1s;}
+		.box2:hover img{transform: scale(1.05);}
+
+		.group-box2{width : 200px; height : 200px; float : right;}
+		p.title2{width : 200px; height: 25px; line-height: 25px; font-size: 20px;}
+		p.contents2{height : 175px; line-height: 20px;}
+		.group-box2:hover p.title2{text-decoration: underline;}
+
+	</style>
+</head>
+<body>
+	<div class="out-box">
+		<div class="box1">
+			<div class="inner-box1">
+				<div class="img-box1">
+					<img src="../img/k8.jpg" alt="">
+				</div>
+				<div class="group-box1">
+					<p class="title1">제목입니다.</p>
+					<p class="contents1">내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.</p>
+				</div>
+			</div>
+		</div>
+		<div class="box2">
+			<div class="inner-box2">
+				<div class="img-box2">
+					<img src="../img/k8.jpg" alt="">
+				</div>
+				<div class="group-box2">
+					<p class="title2">제목입니다.</p>
+					<p class="contents2">내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
