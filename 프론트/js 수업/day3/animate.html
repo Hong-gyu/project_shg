@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 애니메이트 </title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		/* 애니메이트
+			1. 기본문법
+				$(selector).animate({params},speed,callback);
+			2. 특징 
+				1) params : css속성과 값을 입력해야 함 위치만큼 이동함
+				2) speed : 애니메이션 속도
+				3) callback : 애니메이션 끝난 후 해야할 작업을 호출하는 함수 
+		*/ 
+		$(function(){
+			/* 왼쪽 버튼을 클릭하면 왼쪽으로 이동하는 코드 */ 
+			$('#left').click(function(){
+				$('.box').stop().animate({left:'0px'},1000,function(){
+					console.log('왼쪽으로 이동 완료');
+				})
+			})
+			$('#right').click(function(){
+				$('.box').stop().animate({left:'200px'},1000,function(){
+					console.log('오른쪽으로 이동 완료');
+				})
+			})
+		});
+	</script>
+	<style>
+		 .box{background: tomato; height: 100px; width: 100px; position: relative; margin-top: 20px;}
+	</style>
+</head>
+<body>
+	<button id="left">왼쪽</button>
+	<button id="right">오른쪽</button>
+	<div class="box"></div>
+</body>
+</html>
