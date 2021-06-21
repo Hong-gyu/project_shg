@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 슬라이드 예제 </title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		/* up버튼을 클릭하면 박스가 slideUp이 되고  down 버튼을 클릭하면 박스가 slideDown이 되도록 코드 작성
+			 단, slideUp, slideDown이 아닌 애니메이트 이용*/ 
+		$(function(){
+			$('#up').click(function(){
+				$('.box').stop().animate({height:'0px'},1000)
+			})
+			$('#down').click(function(){
+				$('.box').stop().animate({height:'100px'},1000)
+			})
+		});
+	</script>
+	<style>
+		 .box{background: tomato; height: 100px; width: 100px; position: relative; margin-top : 20px;}
+	</style>
+</head>
+<body>
+	<button id="up">up</button>
+	<button id="down">down</button>
+	<div class="box"></div>
+</body>
+</html>
