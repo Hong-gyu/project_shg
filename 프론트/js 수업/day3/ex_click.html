@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 클릭 예제</title>
+</head>
+<body>
+    <button id = "btn1">시작</button>
+    <button id = "btn2" onclick="alert('종료')">종료</button>
+    <script>
+        // 버튼 2개를 만들고, 버튼 1을 클릭하면 시작이라는 알림창이, 버튼2를 클릭하면 종료라는 알림창이 뜨도록 코드 작성
+        var btn1 = document.getElementById('btn1');
+				btn1.addEventListener('click', function(){
+        alert('시작');
+				})
+    </script>
+</body>
+</html>
