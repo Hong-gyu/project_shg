@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		$(function(){
+			// 전송버튼 눌렀을 때 입력한 숫자값에 맞는 상자에 select 효과 주기
+			$('.sendBtn').click(function(){
+				var value = $('.num').val();
+				if(value==1){
+					$('.box0').animate({'margin-left':'0px'})
+				} else if(value==2){
+					$('.box0').animate({'margin-left':'120px'})
+				} else if(value==3){
+					$('.box0').animate({'margin-left':'240px'})
+				} else if(value==4){
+					$('.box0').animate({'margin-left':'360px'})
+				} else if(value==5){
+					$('.box0').animate({'margin-left':'480px'})
+				} else {
+					alert('잘못입력하셨습니다.')
+				}
+			})
+		})
+	</script>
+	<style>
+		*{margin : 0; padding : 0;}
+		.box0{position: absolute; width : 100px; height : 100px;
+			border : 1px solid blue; margin-top : 20px; box-sizing: border-box;
+		}
+		.box1, .box2, .box3, .box4, .box5{width : 100px; height : 100px;
+		border : 1px solid green; float : left; margin : 20px 20px 0 0;
+		box-sizing: border-box;
+		}
+		.selected{border : 1px solid blue;}
+	</style>
+</head>
+<body>
+	<input type="text" class="num" placeholder="1~5 사이(초기 : 1)"><button class="sendBtn"> 전송 </button>
+	<div class="box">
+		<div class="box0"></div>
+		<div class="box1"></div>
+		<div class="box2"></div>
+		<div class="box3"></div>
+		<div class="box4"></div>
+		<div class="box5"></div>
+	</div>
+</body>
+</html>
