@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 다음 메뉴 기능 예제 </title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		$(function(){
+			$('.menu li').click(function(e){
+				e.preventDefault();
+				if($(this).hasClass('selected')){
+					location.href = $(this).children('a').attr('href');
+				} else {
+					$('.menu li').removeClass('selected');
+					$(this).addClass('selected');
+				}
+			})
+			// 뭘 누르든 radiousbox가 오른쪽으로 이동하면서 색이 바뀜
+			$('.radious-box').click(function(){
+				$('#one').removeClass('selected');
+				$('#two').addClass('selected');
+			})
+		})
+	</script>
+	<style>
+		*{padding : 0; margin: 0; list-style: none; text-decoration: none; color: #000;}
+		.menu{display: flex;}
+		.menu li{width : 100px; height : 50px;	float : left; text-align: center;
+		line-height: 50px; font-weight: bold; cursor: pointer;}
+		.selected a{color : skyblue; text-decoration: underline;}
+		.radious-box{display: flex;}
+		.radious-box li{width : 5px; height: 5px; border-radius: 100%; background: gainsboro;
+		border : 1px solid gray; margin-top : 22px; margin-left : 2px;
+		}
+		.radious-box .selected{background: skyblue;}
+	</style>
+</head>
+<body>
+	<div class="menu-box">
+		<ul class = "menu">
+			<li class="selected" id="news"><a href="https://news.daum.net/">			뉴스	</a></li>
+			<ul class="radious-box">
+				<li class="more selected" id="one"><a href="#"></a></li>
+				<li class="more" id="two"><a href="#"></a></li>
+				<li class="more" id="three"><a href="#"></a></li>
+			</ul>
+			<li><a href="https://entertain.daum.net/">	연예	</a></li>
+			<li><a href="https://sports.daum.net/">		스포츠</a></li>
+			<li><a href="https://movie.daum.net/main">	영화	</a></li>
+			<li><a href="https://auto.daum.net/">			자동차</a></li>
+			<li><a href="https://realty.daum.net/">		부동산</a></li>
+		</ul>
+	</div>
+</body>
+</html>
