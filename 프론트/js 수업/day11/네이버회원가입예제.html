@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 네이버 회원가입 예제 </title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		$(function(){
+			$(document).on('click','.signIn',function(){
+				// 아이디 : 5~20자의 영문 소문자, 숫자와 특수기호(_)(-)
+				var idReg = /^[a-z0-9_-]{5,20}$/;
+				var id = $('.id').val();
+				if(id==''){
+					$('.id-error0').show();
+				} else if(idReg.test(id)==false){
+					$('.id-error0').hide();
+					$('.id-error1').show();
+				}
+				// 비밀번호 : 8~16자 영문 대 소문자, 숫자, 특수문자
+				var pwReg = /^[a-zA-Z0-9~!@#$%^&*()_+-|<>?:;`,{}]{8,16}$/
+				var pw1 = $('.pw1').val();
+				console.log(pw1);
+				if(pw1 ==''){
+					$('.pw1-error0').show();
+				} else if(pwReg.test(pw1)==false){
+					$('.pw1-error1').show();
+				}
+				// 비밀번호 확인 : 8~16자 영문 대 소문자, 숫자, 특수문자
+				var pwReg = /^[a-zA-Z0-9]{8,16}$/
+				var pw2 = $('.pw2').val();
+				if(pw2 ==''){
+					$('.pw2-error0').show();
+				}
+				// 이름
+				var name = $('.name').val();
+				if(name==''){
+					$('.name-error').show();
+				}
+				// 생년월일
+				var year = $('.year').val();
+				if(year==''){
+					$('.birth-error1').show()
+				}
+				// 성별
+				var gender = $('.gender-select-box').val();
+				if(gender==''){
+					$('.gender-error').show()
+				}
+
+				// 휴대전화
+				var phoneReg = /^010(-[0-9]{4}){2}$/;
+				var phone = $('.phone').val();
+				if(phone==''){
+					$('.phone-error1').show()
+				}
+			})
+		})
+	</script>
+	<style>
+		*{margin : 0; padding : 0;}
+		/* .box{width : 200px; height : 50px; border : 1px solid gray} */
+		.birth-box::after{display: block; content: ''; clear: both;}
+
+		.error{display: none; color : red; font-size: 12px;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="id-box">아이디<br>
+			<span class="id-input-box box">
+				<input type="text" class="id">
+			</span>
+			<span class="url">@naver.com</span><br>
+			<span class="id-error0 error">필수정보입니다.</span>
+			<span class="id-error1 error">5~20자의 영문 소문자, 숫자와 특수기호(_)(-)만 사용 가능합니다.</span>
+			<span class="id-error2 error">이미 사용중이거나 탈퇴한 아이디 입니다.</span>
+		</div>
+		<div class="pw-box">비밀번호<br>
+			<span class="pw-input-box box">
+				<input type="text" class ="pw1">
+			</span><br>
+			<span class="pw1-error0 error">필수정보입니다.</span>
+			<span class="pw1-error1 error">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span>
+		</div>
+		<div class="pw-box">비밀번호 재확인<br>
+			<span class="pw-input-box box">
+				<input type="text" class="pw2">
+			</span><br>
+			<span class="pw2-error0 error">필수정보입니다.</span>
+			<span class="pw2-error1 error">비밀번호가 일치하지 않습니다.</span>
+		</div>
+		<div class="name-box">이름<br>
+			<span class="name-input-box box">
+				<input type="text" class="name">
+			</span><br>
+			<span class="name-error error">필수정보입니다.</span>
+		</div>
+		<div class="birth-box">생년월일<br>
+			<span class="year-input-box box2">
+				<input type="text" class="year" placeholder="년(4자)">
+			</span>
+			<span class="month-input-box box2">
+				<select name="month_select">
+					<option value="">월</option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+				</select><br>
+			</span>
+			<span class="day-input-box box2">
+				<input type="text" class="day" placeholder="일">
+			</span><br>
+			<span class="birth-error1 error">태어난 년도 4자리를 정확하게 입력하세요.</span>
+		</div>
+		<div class="gender-box">성별<br>
+			<select name="email_select" class="gender-select-box">
+				<option value="">성별</option>
+				<option value="man">남자</option>
+				<option value="woman">여자</option>
+				<option value="none">선택안함</option>
+			</select><br>
+			<span class="gender-error error">필수정보입니다.</span>
+		</div>
+		<div class="phone-box">휴대전화<br>
+			<span class="phone-input-box box">
+				<input type="text" class="phone" placeholder="전화번호 입력">
+			</span><br>
+			<span class="phone-error1 error">필수정보입니다.</span>
+		</div>
+		<button class="signIn">가입하기</button>
+	</div>
+</body>
+</html>
