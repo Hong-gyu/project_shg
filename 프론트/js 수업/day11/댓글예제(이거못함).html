@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>댓글예제</title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		$(function(){
+			$('.regBtn').click(function(){
+				var str = 
+					'<div class="regBox">' +
+						'<div class="regWriter" id="w"></div>'+
+						'<div class="repContents" id="reply"></div>'+
+						'<div class="delBtn"></div>'+
+					'</div>'
+				$('.re').append(str);
+			})
+		})		
+	</script>
+	<style>
+		*{margin : 0; padding : 0;}
+		div{height : 50px;}
+		.contents{height : 300px; border : 1px solid black; box-sizing: border-box;
+		}
+		p{height : 50px; font-weight: bold; margin-top : 10px;}
+
+		.regBox{display: flex;}
+			.regWriter{width : 100px; height : 50px; margin-right: 10px;}
+			.repContents{width : calc(100% - 20px); }
+			.delBtn{width : 50px; height : 25px; border : 1px solid black; text-align: center;
+			background: lightgray; float : right; margin: 12px 24px; font-size: 13px;
+			line-height: 25px; cursor: pointer;}
+
+		.writer-box{display: flex;}
+			.writer{width : 100px; height : 50px;}
+			.replyBox{width : calc(100% - 100px); height : 100px;
+			border : 1px solid black; margin-right: 10px; box-sizing: border-box;}
+			.regBtn{width : 100px; height : 100px; background-color: lightgray;
+			text-align: center; line-height: 100px; border : 1px solid black;
+			cursor: pointer; box-sizing: border-box;}
+		
+		
+	</style>
+</head>
+<body>
+	<div>제목입니다</div>
+	<div>홍길동</div>
+	<div class="contents"></div>
+	<p class="re">댓글
+		<div class="writer-box">
+			<div class="writer" id="w">작성자</div>
+			<input type="text" class="replyBox" id="reply">
+			<div class="regBtn">등록</div>
+		</div>
+	</p>
+</body>
+</html>
