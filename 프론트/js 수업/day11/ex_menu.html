@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> 메뉴 예제 </title>
+	<script src="../js/jQuery.min.js"></script>
+	<script>
+		$(function(){
+			$('.box1').hover(function(){
+				$('.sbox1').siblings().animate({'margin-top':'-402px'})
+				$('.sbox1').animate({'margin-top':'0px'})
+			})
+			$('.box2').hover(function(){
+				$('.sbox2').siblings().animate({'margin-top':'-402px'})
+				$('.sbox2').animate({'margin-top':'0px'})
+			})
+			$('.box3').hover(function(){
+				$('.sbox3').siblings().animate({'margin-top':'-402px'})
+				$('.sbox3').animate({'margin-top':'0px'})
+			})
+		})
+	</script>
+	<style>
+		*{margin : 0; padding : 0; text-decoration: none; color: #000;
+		 list-style: none;
+		}
+		.menu-box, .sub-menu{display : flex}
+		.menu-box li, .sub-menu li{width : 300px; border : 1px solid black;
+		 box-sizing: border-box; float : left; margin-right: 1px; margin-bottom: 1px;
+		 text-align: center;
+		}0
+		.menu-box li{height : 50px;  line-height: 50px;}
+		.sub-menu li{height : 350px; line-height: 350px; margin-top : -402px;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul class = "menu-box">
+			<li class = "menu-list box1"><a href="#">1</a></li>
+			<li class = "menu-list box2"><a href="#">2</a></li>
+			<li class = "menu-list box3"><a href="#">3</a></li>
+		</ul>
+		<ul class = "sub-menu">
+			<li class = "sbox1"><a href="#">1</a></li>
+			<li class = "sbox2"><a href="#">2</a></li>
+			<li class = "sbox3"><a href="#">3</a></li>
+		</ul>
+	</div>
+</body>
+</html>
