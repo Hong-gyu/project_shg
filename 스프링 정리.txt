@@ -1,0 +1,92 @@
+컨트롤러 : 일치하는 URI이 있는지 확인하여 있으면 해당 코드 실행
+
+src/main/webapp - 스프링의 기본이 되는 폴더
+src/main/webapp/resource - css/js/이미지 등을 관리하는 폴더
+src/main/webapp/WEB-INF/spring - 스프링 설정 파일이 있는 폴더
+src/main/webapp/WEB-INF/views - 화면 파일(jsp) 이 있는 폴더
+pom.xml - 필요한 기능을 연결(설치)하기 위한 파일
+
+스프링 : 자바로 된 웹 개발 프레임워크
+ - MVC 모델로 되어있어 개발이 용이
+ - M : Model - DB에 있는 정보를 Model 을 통해 주고 받음
+ - V : View - 화면
+ - C : Controller
+
+- gitignore : git으로 파일을 관리할 때 신경 안쓰고자 하는 파일을 gitignore에 입력하면
+  파일 내용이 바뀌어도 git에 뜨지 않게 하는 파일
+
+xml파일에서 #{}와 ${}의 차이
+ #{}은 '값'으로 ''를 추가하여 데이터로 인식
+ ${}는 값으로 변수(속성명)로 인식
+
+xml 파일에서 쿼리문 작성방법
+ <태그명 id = "" resultType=""> 
+  쿼리
+ </태그명>
+
+태그명 : select, insert, update, delete 로 원하는  쿼리문에 맞게 태그명 선정
+id : dao의 메소드 명과 일치
+resultType : 태그명이 select 일 때만 사용
+  - 리턴타입을 의미
+
+7/6
+회원을 관리하기 위해  member 테이블을 생성
+
+MemberVO 		- class
+MemberController		- class
+MemberService		- interface
+MemberServiceImp	- class
+MemberDAO		- interface
+MemberMapper		- xml
+
+sign.jsp 에 로그인 화면을 구현하고, 로그인 정보를 입력해서 서버로 데이터를 전송한 후
+ 서버에서 전송 된 데이터를 출력하세요
+테스트 할 때 URI는 /signin으로 테스트
+
+signup.jsp 파일을 생성한 후, 회원가입 화면을 구현하고, 회원 정보를 입력해서 서버로 데이터를 전송한 후
+서버에서 전송된 데이터를 출력하세요
+URI는 /signup
+
+ 1. /signup에 접근할 수 있도록 컨트롤러에 @RequestMapping과 메소드를 추가
+ 2. signup.jsp 생성 후 코드 추가, 이때 메소드를 post 방식(회원정보는 보여지면 안되기 때문)으로
+ 3. /signup post를 처리 할 수 있도록 컨트롤러에 @RequestMapping과 메소드를 추가
+
+7/7
+컨트롤러(URL이 주어졌을때 URL이 있는지 없는지 판단하여 누구에게 일을 시킬지 정함)
+
+ > 서비스
+	- 서비스 : 서비스 인터페이스
+	- 서비스임프 : 서비스 구현클래스와 같은 것
+
+ > 다오(데이터베이스에 접근)
+	- 다오 : 다오 인터페이스
+	- 매퍼 : 다오 구현클래스와 같은 것
+
+A컨트롤러가 게시글을 가져오려 함
+B컨트롤러가 게시글을 가져오려 함
+다오를 이용하여 게시글을 가져오는 코드가 30줄
+
+중간에 서비스가 없으면
+
+A 컨트롤러에 30줄 추가
+B 컨트롤러에 30줄 추가
+
+중간에 서비스가 있으면
+서비스에 다오를 이용하여 게시글 가져오는 메소드를 추가 30줄 추가 
+A 컨트롤러에 서비스를 이용하여 게시글 가져옴 1줄 추가
+B 컨트롤러에 서비스를 이용하여 게시글 가져옴 1줄 추가
+
+
+페이지 추가 순서
+1. 컨트롤러
+  1) 페이지 설정,  get(또는 post) 메소드추가, 초기설정(mv.setViewName, return)
+2. views
+  1) 보여질 화면 추가(.jsp) * 꾸미는건 나중에 해도 됨 여기서 한번 화면연동잘 되었는지 확인
+3. 컨트롤러
+  1) 서비스에게 일을 시킴
+  2) 서비스가 가져온 정보를 화면에 전달
+  3) 오류난거 f2 누르고 create
+4. 서비스
+5. 서비스임프
+  1) 다오에게 일 시킴
+  2) 다오가 가져온 정보 전달

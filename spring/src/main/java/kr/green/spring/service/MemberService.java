@@ -7,4 +7,8 @@ public interface MemberService {
 	public MemberVO signin(MemberVO user);
 
 	public boolean signup(MemberVO user);
+	
+	public MemberVO mypage(MemberVO id);
+
+	public MemberVO getMember(String id);
 }
