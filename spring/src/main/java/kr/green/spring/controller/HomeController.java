@@ -69,6 +69,13 @@ public class HomeController {
 		mv.setViewName("member/mypage");
 		return mv;
 	}
+	@RequestMapping(value = "/member/mypage", method=RequestMethod.POST)
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user) {
+		// 서비스 에게 회원정보를 주면서 수정하라고 요청
+		memberService.updateMember(user);
+		mv.setViewName("redirect:/member/mypage");
+		return mv;
+	}
 }
 // Autowired 
 /* @Inject 와 비슷(차이점은 @Inject 내장 어노테이션이고 @Autowired는 아님

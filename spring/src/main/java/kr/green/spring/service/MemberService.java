@@ -11,4 +11,6 @@ public interface MemberService {
 	public MemberVO mypage(MemberVO id);
 
 	public MemberVO getMember(String id);
+
+	public int updateMember(MemberVO user);
 }
