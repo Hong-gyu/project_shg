@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <html>
 <head>
-	<title>Home</title>
+	<title> 스프링 테스트 </title>
 </head>
 <body>
 <h1>
