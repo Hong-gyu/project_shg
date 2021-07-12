@@ -14,24 +14,25 @@ import kr.green.test.service.BoardService;
 import kr.green.test.vo.BoardVO;
 import lombok.extern.log4j.Log4j;
 
+
 @Log4j
 @Controller
 @RequestMapping(value="/board/*")
 public class BoardController {
 	@Autowired
 	BoardService boardService;
-
+	
 	@RequestMapping(value="/list")
-	public ModelAndView list(ModelAndView mv, String msg, Criteria cri) {
-		log.info(cri);
-		PageMaker pm = new PageMaker();
-		pm.setCriteria(cri);
-		pm.setDisplayPageNum(2);
-		int totalCount = boardService.getTotalCount(cri);
-		ArrayList<BoardVO> list = boardService.getBoardList();
-		log.info(list);
-		mv.addObject("list",list);
-		mv.addObject("msg",msg);
+	public ModelAndView list(ModelAndView mv,String msg, Criteria cri) {
+		cri.setPerPageNum(2); // 한 페이지에 게시글 2개
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
+		// 현재 페이지(검색타입, 검색어)에 대한 총 게시글 수를 가져와야 함
+		int totalCount = boardService.getTotalCount(cri); // 토탈 카운트를 서비스에게 새로은 변수를 만들어서 토탈 카운트를 세서 가져오라고 시킴
+		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		log.info(pm);
+		mv.addObject("pm",pm);
+		mv.addObject("list", list);
+		mv.addObject("msg", msg);
 		mv.setViewName("board/list");
 		return mv;
 	}
@@ -39,9 +40,8 @@ public class BoardController {
 	public ModelAndView detail(ModelAndView mv, Integer num, String msg) {
 		boardService.updateViews(num);
 		BoardVO board = boardService.getBoard(num);
-		// 가져온 게시글을 화면에 전달, 화면에 보낼 이름은 board로
-		mv.addObject("board",board);
-		mv.addObject("msg",msg);
+		mv.addObject("board", board);
+		mv.addObject("msg", msg);
 		mv.setViewName("board/detail");
 		return mv;
 	}
@@ -52,42 +52,37 @@ public class BoardController {
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
 	public ModelAndView registerPost(ModelAndView mv, BoardVO board) {
+		log.info(board);
 		boardService.insertBoard(board);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public ModelAndView modifyGet(ModelAndView mv, Integer num) {
-		// 서비스야 수정할 게시글 번호를 줄테니 그 게시글 정보를 가져와
+		log.info("/board/modify : "+num);
 		BoardVO board = boardService.getBoard(num);
-		// 그리고 화면에 보여줘
-		mv.addObject("board",board);
+		mv.addObject("board", board);
 		mv.setViewName("board/modify");
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public ModelAndView modifyPost(ModelAndView mv, BoardVO board) {
-		log.info("/board/modift:POST:"+board);
+		log.info("/board/modify:POST : " + board);
 		int res = boardService.updateBoard(board);
 		String msg = res != 0 ? board.getNum()+"번 게시글이 수정되었습니다." : "없는 게시글입니다.";
-		mv.addObject("msg",msg);
+		mv.addObject("msg", msg);
 		mv.addObject("num",board.getNum());
 		mv.setViewName("redirect:/board/detail");
 		return mv;
 	}
-	
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public ModelAndView deletePost(ModelAndView mv, Integer num) {
-		// 서비스야 삭제할 게시글 번호 줄테니 그 게시글 정보 가져와
-		log.info("/board/delete : "+num); // 테스트용 log
-		// 서비스야 삭제할 게시글 번호 줄테니 삭제해
+		log.info("/board/delete : "+num);
 		int res = boardService.deleteBoard(num);
-		// 삭제에 성공하면 성공했다는 정보를 화면에 전달하고
 		if(res != 0) {
 			mv.addObject("msg",num+"번 게시글을 삭제 했습니다.");
-		} else {
-			// 실패하면 실패했다는 정보를 화면에 전달해
-			mv.addObject("msg","게시글이 존재하지 않거나 이미 삭제되었습니다.");
+		}else {
+			mv.addObject("msg","게시글이 없거나 이미 삭제되었습니다.");
 		}
 		mv.setViewName("redirect:/board/list");
 		return mv;

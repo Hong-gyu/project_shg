@@ -7,8 +7,8 @@ import kr.green.test.vo.BoardVO;
 
 public interface BoardService {
 
-	ArrayList<BoardVO> getBoardList();
-	
+	ArrayList<BoardVO> getBoardList(Criteria cri);
+
 	BoardVO getBoard(Integer num);
 
 	int updateViews(Integer num);
@@ -20,6 +20,5 @@ public interface BoardService {
 	int updateBoard(BoardVO board);
 
 	int getTotalCount(Criteria cri);
-
 
 }

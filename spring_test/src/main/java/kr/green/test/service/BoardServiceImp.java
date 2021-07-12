@@ -15,8 +15,8 @@ public class BoardServiceImp implements BoardService {
 	BoardDAO boardDao;
 
 	@Override
-	public ArrayList<BoardVO> getBoardList() {
-		return boardDao.getBoardList();
+	public ArrayList<BoardVO> getBoardList(Criteria cri) {
+		return boardDao.getBoardList(cri);
 	}
 
 	@Override
@@ -32,12 +32,11 @@ public class BoardServiceImp implements BoardService {
 	public int updateViews(Integer num) {
 		//다오에게 게시글 정보를 가져오라고 요청
 		BoardVO board = boardDao.getBoard(num);
-		if(board != null) {
-			board.setViews(board.getViews()+1);
-			// 다오에게 게시글을 주면서 게시글을 수정하라고 요청
-			return boardDao.updateBoard(board);
+		if(board == null) {
+			return 0;
 		}
-		return 0;		
+		board.setViews(board.getViews()+1);
+		return boardDao.updateBoard(board);
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int deleteBoard(Integer num) {
 		if(num == null) {
-			return 0;	
+			return 0;
 		}
 		BoardVO board = boardDao.getBoard(num);
 		board.setValid("D");
@@ -60,7 +59,7 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public int updateBoard(BoardVO board) {
-		if( board == null ) {
+		if(board == null) {
 			return 0;
 		}
 		BoardVO dbBoard = boardDao.getBoard(board.getNum());
@@ -71,7 +70,6 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public int getTotalCount(Criteria cri) {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardDao.getTotalCount(cri);
 	}
 }
