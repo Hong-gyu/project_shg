@@ -16,7 +16,7 @@
 		  	<h2> 게시판 </h2>
 			<div class="form-group">
 				<label> 제목 </label>
-				<input type="text" class="form-control" value="${board.title}" readonly>
+				<input type="text" class="form-control" value="<c:out value = "${board.title}"/>" readonly>
 			</div>
 			<div class="form-group">
 				<label> 작성자 </label>
@@ -34,9 +34,10 @@
 				<label> 내용 </label>
 				<textarea type="text" class="form-control" readonly>${board.contents }</textarea>
 			</div>
-			<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-success">수정</button></a>
-			<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-success">삭제</button></a>
+			<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}"><button class="btn btn-outline-primary">수정</button></a>
+			<a href="<%=request.getContextPath()%>/board/delete?num=${board.num}"><button class="btn btn-outline-danger">삭제</button></a>
 			<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-success">목록</button></a>
+			<a href="<%=request.getContextPath()%>/"><button class="btn btn-outline-warning">홈</button></a>
 		</div>
 	</c:if>
 	<c:if test="${board==null}">

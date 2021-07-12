@@ -1,5 +1,7 @@
 package kr.green.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,7 @@ public class HomeController {
 		}else {
 			mv.setViewName("redirect:/signin");
 		}
+		mv.addObject("user",dbUser);
 		return mv;
 	}
 	@RequestMapping(value = "/signup", method=RequestMethod.GET)
@@ -60,22 +63,31 @@ public class HomeController {
 		return mv;
 	}
 	@RequestMapping(value = "/member/mypage", method=RequestMethod.GET)
-	public ModelAndView memberMypageGet(ModelAndView mv, String id) {
-		// 서비스에게 아이디를 주면서 회원 정보를 가져오라고 시킴
-		MemberVO user = memberService.getMember(id);
-		System.out.println(user);
-		// 가져온 회원 정보를 화면에 전달
-		mv.addObject("user", user);
+	public ModelAndView memberMypageGet(ModelAndView mv) {
 		mv.setViewName("member/mypage");
 		return mv;
 	}
 	@RequestMapping(value = "/member/mypage", method=RequestMethod.POST)
-	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user) {
-		// 서비스 에게 회원정보를 주면서 수정하라고 요청
-		memberService.updateMember(user);
+	public ModelAndView memberMypagePost(ModelAndView mv, MemberVO user, HttpServletRequest request) {
+		// request에 있는 세션 안에 있는 로그인한 회원 정보를 가져옴
+		MemberVO sessionUser = memberService.getMember(request);
+		// 세션에 로그인한 회원 정보가 있고, 세션에 있는 아이디와 수정할 아이디가 같으면 회원 정보 수정함
+		if(sessionUser != null && sessionUser.getId().equals(user.getId())) {
+			MemberVO updatedUser = memberService.updateMember(user);
+			if(updatedUser != null) {
+				request.getSession().setAttribute("user", updatedUser);
+			}
+		}
 		mv.setViewName("redirect:/member/mypage");
 		return mv;
 	}
+	@RequestMapping(value = "/signout", method=RequestMethod.GET)
+	public ModelAndView signOutGet(ModelAndView mv, HttpServletRequest request) {
+		request.getSession().removeAttribute("user");
+		mv.setViewName("redirect:/");
+		return mv;
+	}
+	
 }
 // Autowired 
 /* @Inject 와 비슷(차이점은 @Inject 내장 어노테이션이고 @Autowired는 아님

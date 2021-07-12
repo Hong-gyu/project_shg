@@ -28,6 +28,7 @@
 	<input type = "hidden" value="${board.num}" name="num">
 	<input type = "hidden" value="${board.views}" name="views">
 	<button type="submit" class="btn btn-outline-success">등록</button>
+	<a href="<%=request.getContextPath()%>/"><button class="btn btn-outline-primary">뒤로가기</button></a>
 </form>
 </body>
 </html>

@@ -65,6 +65,7 @@
   		<h1>게시글이 없습니다.</h1>
 	</c:if>
   	<a href="<%=request.getContextPath()%>/board/register"><button class="btn btn-outline-success">글쓰기</button></a>
+  	<a href="<%=request.getContextPath()%>/"><button class="btn btn-outline-primary">홈</button></a>
 </div>
 </body>
 </html>
