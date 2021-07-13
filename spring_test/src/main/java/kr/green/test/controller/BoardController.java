@@ -2,25 +2,25 @@ package kr.green.test.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.green.test.pagination.Criteria;
-import kr.green.test.pagination.PageMaker;
-import kr.green.test.service.BoardService;
-import kr.green.test.vo.BoardVO;
-import lombok.extern.log4j.Log4j;
+import kr.green.test.pagination.*;
+import kr.green.test.service.*;
+import kr.green.test.vo.*;
 
-
-@Log4j
 @Controller
 @RequestMapping(value="/board/*")
 public class BoardController {
 	@Autowired
 	BoardService boardService;
+	@Autowired
+	MemberService memberService;
 	
 	@RequestMapping(value="/list")
 	public ModelAndView list(ModelAndView mv,String msg, Criteria cri) {
@@ -29,7 +29,6 @@ public class BoardController {
 		// 현재 페이지(검색타입, 검색어)에 대한 총 게시글 수를 가져와야 함
 		int totalCount = boardService.getTotalCount(cri); // 토탈 카운트를 서비스에게 새로은 변수를 만들어서 토탈 카운트를 세서 가져오라고 시킴
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		log.info(pm);
 		mv.addObject("pm",pm);
 		mv.addObject("list", list);
 		mv.addObject("msg", msg);
@@ -51,23 +50,25 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView registerPost(ModelAndView mv, BoardVO board) {
-		log.info(board);
-		boardService.insertBoard(board);
+	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
+		boardService.insertBoard(board, user);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public ModelAndView modifyGet(ModelAndView mv, Integer num) {
-		log.info("/board/modify : "+num);
+	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest r) {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
 		mv.setViewName("board/modify");
+		MemberVO user = memberService.getMember(r);
+		if(board == null || !board.getWriter().equals(user.getId())) {
+			mv.setViewName("redirect:/board/list");
+		}
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public ModelAndView modifyPost(ModelAndView mv, BoardVO board) {
-		log.info("/board/modify:POST : " + board);
 		int res = boardService.updateBoard(board);
 		String msg = res != 0 ? board.getNum()+"번 게시글이 수정되었습니다." : "없는 게시글입니다.";
 		mv.addObject("msg", msg);
@@ -76,8 +77,8 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView deletePost(ModelAndView mv, Integer num) {
-		log.info("/board/delete : "+num);
+	public ModelAndView deletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
+		MemberVO user = memberService.getMember(r);
 		int res = boardService.deleteBoard(num);
 		if(res != 0) {
 			mv.addObject("msg",num+"번 게시글을 삭제 했습니다.");

@@ -14,21 +14,17 @@
 <body>
 
 	<form class="container" method="post" action = "<%=request.getContextPath()%>/board/register">
-		<h1>게시글 작성하기 </h1>
+		<h1> 게시글 작성하기 </h1>
 	    <div class="form-group">
 		      <label> 제목 </label>
 		      <input type="text" class="form-control" name="title">
-		</div>
-	    <div class="form-group">
-		      <label> 작성자 </label>
-		      <input type="text" class="form-control" name="writer">
 		</div>
 	    <div class="form-group">
 		      <label> 내용 </label>
 		      <textarea type="text" class="form-control" rows="10" name="contents">${board.contents}</textarea>
 		</div>
 		<button class = "btn btn-outline-success">등록</button>
-		<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-danger" type="button">목록</button></a>
+		<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-primary" type="button">목록</button></a>
 	</form>
 
 </body>
