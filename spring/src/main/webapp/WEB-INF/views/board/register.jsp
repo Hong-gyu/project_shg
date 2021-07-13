@@ -26,6 +26,7 @@
 		<textarea class="form-control" rows="10" name = "contents"></textarea>
 	</div>
 	<button type="submit" class="btn btn-outline-success">등록</button>
+	<a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-primary" type="button">목록</button></a>
 </form>
 </body>
 </html>

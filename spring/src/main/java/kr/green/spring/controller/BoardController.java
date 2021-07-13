@@ -27,13 +27,15 @@ public class BoardController {
 
 	@RequestMapping(value="/board/list")
 	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
+		log.info(cri);
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(3);
+		cri.setPerPageNum(2);
 		pm.setCriteria(cri);
 		pm.setDisplayPageNum(2);
 		int totalCount = boardService.getTotalCount(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
+		log.info(pm);
 		//서비스에게 모든 게시글을 가져오라고 시킴
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		//화면에 모든 게시글을 전송
@@ -62,7 +64,7 @@ public class BoardController {
 	}
 
 	@RequestMapping(value="/board/register", method=RequestMethod.POST)
-	public ModelAndView boardRegisterPost(ModelAndView mv,BoardVO board, HttpServletRequest request) {
+	public ModelAndView boardRegisterPost(ModelAndView mv,BoardVO board,HttpServletRequest request) {
 		MemberVO user = memberService.getMember(request);
 		board.setWriter(user.getId());
 		//서비스에게 게시글 정보(제목, 작성자, 내용)을 주면서 게시글을 등록하라고 시킴
@@ -73,24 +75,29 @@ public class BoardController {
 	@RequestMapping(value="/board/modify", method=RequestMethod.GET)
 	public ModelAndView boardModifyGet(ModelAndView mv, Integer num, HttpServletRequest request) {
 		BoardVO board = boardService.getBoard(num);
+		
 		mv.addObject("board", board);
 		mv.setViewName("board/modify");
 		MemberVO user = memberService.getMember(request);
 		if(board == null || !board.getWriter().equals(user.getId())) {
-			mv.setViewName("redirect:/board/list");			
+			mv.setViewName("redirect:/board/list");
 		}
+		
 		return mv;
 	}
 	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
-	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board, HttpServletRequest request) {
-		//서비스에게 게시글을 주면서 수정하라고 요청
-		boardService.updateBoard(board);
+	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board,HttpServletRequest request) {
 		//detail로 이동
 		mv.addObject("num", board.getNum());
 		mv.setViewName("redirect:/board/detail");
 		MemberVO user = memberService.getMember(request);
+		System.out.println(board);
+		System.out.println(user);
 		if(!user.getId().equals(board.getWriter())) {
 			mv.setViewName("redirect:/board/list");
+		}else {
+			//서비스에게 게시글을 주면서 수정하라고 요청
+			boardService.updateBoard(board);
 		}
 		return mv;
 	}
