@@ -9,14 +9,14 @@ import kr.green.test.vo.BoardVO;
 
 public interface BoardDAO {
 
-	ArrayList<BoardVO> getBoardList(@Param("cri") Criteria cri);
+	ArrayList<BoardVO> getBoardList(@Param("cri")Criteria cri);
 
-	BoardVO getBoard(@Param("num") Integer num);
+	BoardVO getBoard(@Param("num")Integer num);
 
-	int updateBoard(@Param("board") BoardVO board);
+	int updateBoard(@Param("board")BoardVO board);
 
-	void insertBoard(@Param("board") BoardVO board);
+	void insertBoard(@Param("board")BoardVO board);
 
-	int getTotalCount(@Param("cri") Criteria cri);
+	int getTotalCount(@Param("cri")Criteria cri);
 
 }

@@ -38,9 +38,8 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public MemberVO signin(MemberVO user) {
-		if(user == null ||
-			user.getId() == null || user.getId().trim().length() == 0 ||
-			user.getPw() == null || user.getPw().trim().length() == 0)
+		if(user == null || user.getId() == null || user.getId().trim().length() == 0
+			|| user.getPw() ==null || user.getPw().trim().length() == 0)
 			return null;
 		MemberVO dbUser = memberDao.getMember(user.getId());
 		if(dbUser == null)
@@ -52,9 +51,24 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public MemberVO getMember(HttpServletRequest r) {
-		if(r == null || r.getSession()==null)
+		if(r == null || r.getSession() == null)
 			return null;
 		return (MemberVO) r.getSession().getAttribute("user");
-	}    
-   
+	}
+
+	@Override
+	public MemberVO updateMember(MemberVO user, MemberVO sUser) {
+		if(user == null || sUser == null || 
+			user.getId() == null || !user.getId().equals(sUser.getId()))
+			return null;
+		if(user.getPw() != null && user.getPw().trim().length() != 0) {
+			String ePw = passwordEncoder.encode(user.getPw());
+			sUser.setPw(ePw);
+		}
+		sUser.setEmail(user.getEmail());
+		sUser.setGender(user.getGender());
+		sUser.setName(user.getName());
+		memberDao.updateMember(sUser);
+		return sUser;
+	}
 }

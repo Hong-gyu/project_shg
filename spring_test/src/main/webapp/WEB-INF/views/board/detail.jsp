@@ -16,7 +16,7 @@
 		<h1>게시판</h1>
 		<div class="form-group">
 			<label>제목</label>
-			<input type="text" class="form-control" name="title" value="<c:out value = "${board.title}"/>" readonly>
+			<input type="text" class="form-control" name="title" value="<c:out value="${board.title}"/>" readonly>
 		</div>
 		<div class="form-group">
 			<label>작성자</label>
@@ -36,11 +36,11 @@
 		</div>
 		<div class="input-group">
 			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
-			<c:if test="${board != null }">
-				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-info">수정</button></a>
+			<c:if test="${board != null && user.id eq board.writer }">
+				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-danger">수정</button></a>
 				<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
 					<input type="hidden" value="${board.num }" name="num">
-					<button class="btn btn-outline-warning">삭제</button>
+					<button class="btn btn-outline-danger">삭제</button>
 				</form>
 			</c:if>
 		</div>

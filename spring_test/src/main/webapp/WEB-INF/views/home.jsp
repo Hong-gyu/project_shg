@@ -20,5 +20,6 @@ ${user} <br>
 <a href="<%=request.getContextPath()%>/board/list"><button class="btn btn-outline-primary" type="button">게시글</button></a>
 <a href="<%=request.getContextPath()%>/signin"><button class="btn btn-outline-success" type="button">로그인</button></a>
 <a href="<%=request.getContextPath()%>/signup"><button class="btn btn-outline-danger" type="button">회원가입</button></a>
+<a href="<%=request.getContextPath()%>/member/mypage"><button class="btn btn-outline-warning" type="button">마이페이지</button></a>
 </body>
 </html>

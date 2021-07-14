@@ -13,7 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.test.pagination.*;
 import kr.green.test.service.*;
 import kr.green.test.vo.*;
+import lombok.extern.log4j.Log4j;
 
+
+@Log4j
 @Controller
 @RequestMapping(value="/board/*")
 public class BoardController {
@@ -24,12 +27,12 @@ public class BoardController {
 	
 	@RequestMapping(value="/list")
 	public ModelAndView list(ModelAndView mv,String msg, Criteria cri) {
-		cri.setPerPageNum(2); // 한 페이지에 게시글 2개
+		cri.setPerPageNum(2);
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
-		// 현재 페이지(검색타입, 검색어)에 대한 총 게시글 수를 가져와야 함
-		int totalCount = boardService.getTotalCount(cri); // 토탈 카운트를 서비스에게 새로은 변수를 만들어서 토탈 카운트를 세서 가져오라고 시킴
+		//현재 페이지 정보(검색타입, 검색어)에 대한 총 게시글 수를 가져와야함
+		int totalCount = boardService.getTotalCount(cri);
 		PageMaker pm = new PageMaker(totalCount, 2, cri);
-		mv.addObject("pm",pm);
+		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.addObject("msg", msg);
 		mv.setViewName("board/list");
@@ -57,33 +60,43 @@ public class BoardController {
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public ModelAndView modifyGet(ModelAndView mv, Integer num, HttpServletRequest r) {
+	public ModelAndView modifyGet(ModelAndView mv, Integer num) {
+		log.info("/board/modify : "+num);
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
 		mv.setViewName("board/modify");
-		MemberVO user = memberService.getMember(r);
-		if(board == null || !board.getWriter().equals(user.getId())) {
-			mv.setViewName("redirect:/board/list");
-		}
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ModelAndView modifyPost(ModelAndView mv, BoardVO board) {
-		int res = boardService.updateBoard(board);
-		String msg = res != 0 ? board.getNum()+"번 게시글이 수정되었습니다." : "없는 게시글입니다.";
+	public ModelAndView modifyPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+		log.info("/board/modify:POST : " + board);
+		MemberVO user = memberService.getMember(r);
+		int res = boardService.updateBoard(board, user);
+		String msg="";
+		mv.setViewName("redirect:/board/detail");
+		if(res == 1)
+			msg = board.getNum()+"번 게시글이 수정되었습니다.";
+		else if(res == 0)
+			msg = "없는 게시글입니다.";
+		else if(res == -1) {
+			msg = "잘못된 접근입니다.";
+			mv.setViewName("redirect:/board/list");
+		}
 		mv.addObject("msg", msg);
 		mv.addObject("num",board.getNum());
-		mv.setViewName("redirect:/board/detail");
 		return mv;
 	}
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public ModelAndView deletePost(ModelAndView mv, Integer num, HttpServletRequest r) {
+	public ModelAndView deletePost(ModelAndView mv, Integer num,HttpServletRequest r) {
+		log.info("/board/delete : "+num);
 		MemberVO user = memberService.getMember(r);
-		int res = boardService.deleteBoard(num);
-		if(res != 0) {
+		int res = boardService.deleteBoard(num, user);
+		if(res == 1) {
 			mv.addObject("msg",num+"번 게시글을 삭제 했습니다.");
-		}else {
+		}else if(res == 0) {
 			mv.addObject("msg","게시글이 없거나 이미 삭제되었습니다.");
+		}else if(res == -1) {
+			mv.addObject("msg","잘못된 접급입니다.");
 		}
 		mv.setViewName("redirect:/board/list");
 		return mv;
