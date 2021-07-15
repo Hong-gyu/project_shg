@@ -10,8 +10,10 @@
         <put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp" />
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
-     <!-- 템플릿2 -->    
+    
+    <!-- 템플릿2 -->    
     <definition name="/template2/*/*" template="/WEB-INF/views/template/base2.jsp">
         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
     </definition>
+ 
 </tiles-definitions>
