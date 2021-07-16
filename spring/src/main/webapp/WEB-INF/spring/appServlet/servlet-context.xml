@@ -65,10 +65,10 @@
 	    <beans:property name="maxUploadSize" value="10485760"></beans:property>
 	</beans:bean>
 	<beans:bean id="uploadPath" class="java.lang.String">
-	 	<!-- 집 -->
-	    <beans:constructor-arg value="F:\\JAVA_SHG\\uploadfiles"></beans:constructor-arg>
-	    <!-- 학원 
-	    <beans:constructor-arg value="D:\\java_shg\\uploadfiles"></beans:constructor-arg> --> 
+	 	<!-- 집
+	    <beans:constructor-arg value="F:\\JAVA_SHG\\uploadfiles"></beans:constructor-arg> -->
+	    <!-- 학원 --> 
+	    <beans:constructor-arg value="D:\\java_shg\\uploadfiles"></beans:constructor-arg> 
 	</beans:bean>
 	
 </beans:beans>

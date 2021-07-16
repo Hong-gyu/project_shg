@@ -26,7 +26,10 @@ import kr.green.spring.vo.MemberVO;
 public class BoardServiceImp implements BoardService {
 	@Autowired
 	BoardDAO boardDao;
-	private String uploadPath="D:\\JAVA_JIK\\uploadfiles";
+	// 학원
+	private String uploadPath="D:\\java_shg\\uploadfiles";
+	/* 집
+	private String uploadPath="F:\\JAVA_SHG\\uploadfiles"; */
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
@@ -52,8 +55,10 @@ public class BoardServiceImp implements BoardService {
 		boardDao.insertBoard(board);
 		if(file == null)
 			return;
-		for(MultipartFile tmp:file)
+		for(MultipartFile tmp:file) {
 			insertFileVO(tmp, board.getNum());
+			System.out.println(board.getNum());
+		}
 	}
 
 	@Override
@@ -70,12 +75,36 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public int updateBoard(BoardVO board, MultipartFile file) {
+	public int updateBoard(BoardVO board, MultipartFile[] file, Integer[] fileNum) {
 		if(board == null || board.getNum() <= 0) {
 			return 0;
 		}
 		if(board.getValid() == null) {
 			board.setValid("I");
+		}
+		// 예 ) fileList : 1,2,3 - fileNum  : 1,  3 --> 2가 없음
+		// 배열에 있는 값들을 리스트에 저장(배열 -> 리스트)
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		if(fileNum != null) {
+			for(Integer tmp : fileNum) {
+				nums.add(tmp);
+			}
+		}
+		// 기존에 첨부되었던 파일 중 삭제된 파일을 제거		
+		ArrayList<FileVO> fileList = boardDao.getFileVOList(board.getNum());
+		if(fileList != null) {
+			for(FileVO tmp : fileList) {
+				if(!nums.contains((Integer)tmp.getNum())) {
+					deleteFileVO(tmp);
+				}
+			}			
+		}
+
+		// 새로 추가된 파일을 추가
+		if(file != null) {
+			for(MultipartFile tmp : file) {
+				insertFileVO(tmp, board.getNum());
+			}			
 		}
 		/*
 		FileVO fileVo = boardDao.getFileVO(board.getNum());
@@ -107,6 +136,16 @@ public class BoardServiceImp implements BoardService {
 		}
 		//가져온 게시글의 valid값을 D로 수정
 		board.setValid("D");
+		// 첨부파일 삭제
+		// 해당 게시글과 일치하는 첨부파일 정보들을 가져옴
+		// 반복문으로 하나씩 삭제처리
+		ArrayList<FileVO> fileList = boardDao.getFileVOList(num);
+		if(fileList != null && fileList.size() != 0) {
+			for(FileVO tmp : fileList) {
+				deleteFileVO(tmp);
+			}
+		}
+		
 		//다오에게 게시글 정보를 주면서 수정하라고 시킨 후 정수값을 리턴
 		return boardDao.updateBoard(board);
 	}

@@ -1,16 +1,10 @@
 package kr.green.spring.controller;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,9 +33,9 @@ public class BoardController {
 	public ModelAndView boardList(ModelAndView mv, Criteria cri) {
 		log.info(cri);
 		PageMaker pm = new PageMaker();
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(5);
 		pm.setCriteria(cri);
-		pm.setDisplayPageNum(2);
+		pm.setDisplayPageNum(3);
 		int totalCount = boardService.getTotalCount(cri);
 		pm.setTotalCount(totalCount);
 		pm.calcData();
@@ -66,6 +60,8 @@ public class BoardController {
 		
 		//첨부파일 가져오기
 		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		System.out.println(fileList);
+		log.info(fileList);
 		mv.addObject("fileList",fileList);
 		mv.setViewName("/template/board/detail");
 		return mv;
@@ -104,7 +100,7 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
 	public ModelAndView boardModifyPost(ModelAndView mv, BoardVO board,HttpServletRequest request, 
-			MultipartFile file) {
+			MultipartFile[] file, Integer[] fileNum) {
 		//detail로 이동
 		mv.addObject("num", board.getNum());
 		mv.setViewName("redirect:/board/detail");
@@ -114,7 +110,7 @@ public class BoardController {
 			mv.setViewName("redirect:/board/list");
 		}else {
 			//서비스에게 게시글을 주면서 수정하라고 요청
-			boardService.updateBoard(board,file);
+			boardService.updateBoard(board,file,fileNum);
 		}
 		return mv;
 	}
