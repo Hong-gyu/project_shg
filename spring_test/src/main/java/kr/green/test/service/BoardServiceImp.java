@@ -4,16 +4,23 @@ import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.test.dao.BoardDAO;
 import kr.green.test.pagination.Criteria;
+import kr.green.test.utils.UploadFileUtils;
 import kr.green.test.vo.BoardVO;
+import kr.green.test.vo.FileVO;
 import kr.green.test.vo.MemberVO;
 
 @Service
 public class BoardServiceImp implements BoardService {
 	@Autowired
 	BoardDAO boardDao;
+	// 학원
+	private String uploadPath="D:\\java_shg\\uploadfiles";
+	/* 집
+	private String uploadPath="F:\\JAVA_SHG\\uploadfiles"; */
 
 	@Override
 	public ArrayList<BoardVO> getBoardList(Criteria cri) {
@@ -41,7 +48,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void insertBoard(BoardVO board, MemberVO user) {
+	public void insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) {
 		if(board == null || board.getTitle().trim().length() == 0) {
 			return;
 		}
@@ -49,6 +56,26 @@ public class BoardServiceImp implements BoardService {
 			return;
 		board.setWriter(user.getId());
 		boardDao.insertBoard(board);
+		// 첨부파일 추가
+		if(files == null || files.length == 0) {
+			return;
+		}
+		for(MultipartFile file : files) {
+			if(file != null && file.getOriginalFilename().length() != 0) {
+				// 첨부파일을 업로드 하고 경로를 반환해서 ori_name에 저장
+				try {
+					String name = UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes());
+					// 첨부파일 객체 생성
+					FileVO fvo = new FileVO(board.getNum(), name, file.getOriginalFilename());
+					// DB에 첨부파일 정보 추가
+					boardDao.insertFile(fvo);
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	@Override
@@ -87,5 +114,13 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return boardDao.getTotalCount(cri);
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileVOList(Integer num) {
+		if(num == null) {
+			return null;
+		}		
+		return boardDao.getFileVOList(num);
 	}
 }

@@ -34,10 +34,18 @@
 			<label>내용</label>
 			<textarea class="form-control" name="contents" rows="10" readonly>${board.contents }</textarea>
 		</div>
+		<c:if test="${fileList.size() != 0 }">
+			<div class="form-group">
+				<label>첨부파일</label>
+				<c:forEach items="${fileList}" var="file">
+					<a href="<%=request.getContextPath()%>/board/download?fileName=${file.name}" class="form-control mb-2">${file.ori_name}</a>
+				</c:forEach>
+			</div>
+		</c:if>
 		<div class="input-group">
-			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-danger">목록</button></a>
+			<a href="<%=request.getContextPath()%>/board/list" class="mr-2"><button class="btn btn-outline-primary">목록</button></a>
 			<c:if test="${board != null && user.id eq board.writer }">
-				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-danger">수정</button></a>
+				<a href="<%=request.getContextPath()%>/board/modify?num=${board.num}" class="mr-2"><button class="btn btn-outline-warning">수정</button></a>
 				<form action="<%=request.getContextPath()%>/board/delete" method="post" class="mr-2">
 					<input type="hidden" value="${board.num }" name="num">
 					<button class="btn btn-outline-danger">삭제</button>

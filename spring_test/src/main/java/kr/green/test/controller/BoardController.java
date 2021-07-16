@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.test.pagination.*;
@@ -27,15 +28,15 @@ public class BoardController {
 	
 	@RequestMapping(value="/list")
 	public ModelAndView list(ModelAndView mv,String msg, Criteria cri) {
-		cri.setPerPageNum(2);
+		cri.setPerPageNum(5);
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		//현재 페이지 정보(검색타입, 검색어)에 대한 총 게시글 수를 가져와야함
 		int totalCount = boardService.getTotalCount(cri);
-		PageMaker pm = new PageMaker(totalCount, 2, cri);
+		PageMaker pm = new PageMaker(totalCount, 3, cri);
 		mv.addObject("pm", pm);
 		mv.addObject("list", list);
 		mv.addObject("msg", msg);
-		mv.setViewName("board/list");
+		mv.setViewName("/board/list");
 		return mv;
 	}
 	@RequestMapping(value="/detail")
@@ -44,18 +45,23 @@ public class BoardController {
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
 		mv.addObject("msg", msg);
-		mv.setViewName("board/detail");
+		
+		// 첨부파일 가져오기
+		ArrayList<FileVO> fileList = boardService.getFileVOList(num);
+		mv.addObject("fileList",fileList);
+		
+		mv.setViewName("/board/detail");
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.GET)
 	public ModelAndView registerGet(ModelAndView mv) {
-		mv.setViewName("board/register");
+		mv.setViewName("/board/register");
 		return mv;
 	}
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest r) {
+	public ModelAndView registerPost(ModelAndView mv, BoardVO board, HttpServletRequest r, MultipartFile[] files) {
 		MemberVO user = memberService.getMember(r);
-		boardService.insertBoard(board, user);
+		boardService.insertBoard(board, user, files);
 		mv.setViewName("redirect:/board/list");
 		return mv;
 	}
@@ -64,7 +70,7 @@ public class BoardController {
 		log.info("/board/modify : "+num);
 		BoardVO board = boardService.getBoard(num);
 		mv.addObject("board", board);
-		mv.setViewName("board/modify");
+		mv.setViewName("/board/modify");
 		return mv;
 	}
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
